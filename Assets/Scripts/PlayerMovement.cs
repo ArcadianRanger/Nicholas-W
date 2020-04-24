@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,7 +19,19 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    
+
+    private int count;
+    public Text winText;
+    public Text countText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        count = 0;
+        SetCountText();
+        winText.text = "";
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -43,5 +56,24 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive (false);
+            count = count + 1;
+            SetCountText();
+        }
+    }
+
+   void SetCountText ()
+    {
+        countText.text = "count: " + count.ToString();
+        if (count >= 1)
+        {
+            winText.text = ("Game Over");
+        }
     }
 }
