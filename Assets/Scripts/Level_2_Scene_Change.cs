@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Death : MonoBehaviour
+public class Level_2_Scene_Change : MonoBehaviour
 {
-    //https://www.youtube.com/watch?v=mCAXYOwCgCY
-
-
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter(Collider collider)
     {
-        if (other.gameObject.CompareTag ("Enemy"))
+        if (collider.gameObject.tag == "Player")
         {
+            print("Item Picked Up");
             Destroy(gameObject);
             SceneManager.LoadScene("Level_0");
         }

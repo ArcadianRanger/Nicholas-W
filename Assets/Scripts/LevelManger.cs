@@ -7,7 +7,7 @@ public class LevelManger : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene ("Wilson_Independent_Project");
+        SceneManager.LoadScene ("Level_1");
     }
 
     public void QuitGame()

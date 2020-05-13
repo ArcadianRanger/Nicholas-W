@@ -11,7 +11,7 @@ public class PickupObject : MonoBehaviour
         {
             print("Item Picked Up");
             Destroy (gameObject);
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("Level_2");
         }
     }
 }

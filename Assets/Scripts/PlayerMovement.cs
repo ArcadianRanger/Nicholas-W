@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
     
-    public float speed = 12f;
+    public float speed = 18f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
 
@@ -24,12 +24,19 @@ public class PlayerMovement : MonoBehaviour
     public Text winText;
     public Text countText;
 
+    private float BoostTimer;
+    private bool Boosting;
+
     // Start is called before the first frame update
     void Start()
     {
         count = 0;
         SetCountText();
         winText.text = "";
+        
+        speed = 18;
+        BoostTimer = 0;
+        Boosting = false;
     }
 
     // Update is called once per frame
@@ -56,17 +63,38 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-    }
-    
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Pickup"))
+
+        if(Boosting)
         {
-            other.gameObject.SetActive (false);
-            count = count + 1;
-            SetCountText();
+            BoostTimer += Time.deltaTime;
+            if(BoostTimer >= 3)
+            {
+                speed = 18;
+                BoostTimer = 0;
+                Boosting = false;
+            }
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag =="SpeedBoost")
+        {
+            Boosting = true;
+            speed = 100;
+            Destroy(other.gameObject);
+        }
+    }
+    
+    //void OnTriggerEnter(Collider other)
+    //{
+        //if (other.gameObject.CompareTag("Pickup"))
+        //{
+           //other.gameObject.SetActive (false);
+            //count = count + 1;
+           // SetCountText();
+       // }
+   // }
 
    void SetCountText ()
     {
