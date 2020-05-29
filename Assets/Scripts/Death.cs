@@ -12,7 +12,7 @@ public class Death : MonoBehaviour
     {
         if (other.gameObject.CompareTag ("Enemy"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             SceneManager.LoadScene("Level_0");
         }
     }
